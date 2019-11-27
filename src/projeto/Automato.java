@@ -42,4 +42,36 @@ public class Automato {
 		return "estados:" + toStringLista(this.estados) + "\ninicial:\n" + this.inicial + "\n\naceita:"
 				+ toStringLista(this.aceita) + "\ntransições:" + toStringLista(this.transicoes);
 	}
+	
+	public void transicao(String cadeia) {
+		System.out.println(transicoes);
+		String estadoAtual = inicial;
+		System.out.println(aceita);
+		System.out.println(inicial);
+		int percorre = 0;
+		
+		while(percorre != cadeia.length()) {
+			String altera = estadoAtual;
+			for(int i = 0; i < transicoes.size(); i++) {
+			String primeiroEstado = Character.toString(transicoes.get(i).charAt(0));
+			String segundoEstado =	Character.toString(transicoes.get(i).charAt(2));	
+			char leitura  = transicoes.get(i).charAt(4);
+			
+				if (primeiroEstado.equals(estadoAtual) && cadeia.charAt(percorre) == leitura) {
+					System.out.println("true");
+					altera = segundoEstado;
+					System.out.println(primeiroEstado + " " + segundoEstado + " " + leitura);
+					System.out.println(cadeia.charAt(percorre));
+				}
+			}
+			estadoAtual = altera;
+			percorre += 1;
+		}
+		System.out.println(estadoAtual);
+		if(aceita.contains(estadoAtual)) {
+			System.out.println("deu Bom");
+		} else {
+			System.out.println("deu ruim");
+		}
+	}
 }

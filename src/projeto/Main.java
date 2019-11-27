@@ -12,6 +12,7 @@ public class Main {
 
 		File arq = new File("Teste.txt");
 		Automato automato = util.criaAutomato(util.separaLinhas(util.leArquivo(arq)));
-		System.out.println(automato);
+//		System.out.println(automato);
+		automato.transicao("10011");
 	}
 }

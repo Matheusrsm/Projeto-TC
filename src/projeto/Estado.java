@@ -5,26 +5,26 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Estado {
-	private Map<String, Transicao> transicao;
+	private Map<String, Estado> transicoes;
 	private boolean isFinal;
 	private boolean isInicial;
 	
 	
 	public Estado() {
 		super();
-		this.transicao = new HashMap<String, Transicao>();
+		this.transicoes = new HashMap<String, Estado>();
 	}
 
-	public Map<String, Transicao> getTransicao() {
-		return transicao;
+	public Map<String, Estado> getTransicoes() {
+		return transicoes;
 	}
 
-	public void setTransicao(Map<String, Transicao> transicao) {
-		this.transicao = transicao;
+	public void setTransicao(Map<String, Estado> transicao) {
+		this.transicoes = transicao;
 	}
 	
-	public void addTransicao(Transicao transicao, String entrada) {
-		this.transicao.put(entrada, transicao);
+	public void addTransicao(Estado estado, String entrada) {
+		this.transicoes.put(entrada, estado);
 	}
 
 	public boolean isFinal() {
@@ -41,6 +41,9 @@ public class Estado {
 
 	public void setInicial(boolean isInicial) {
 		this.isInicial = isInicial;
+	}
+	public boolean teste() {
+		return this.isFinal;
 	}
 	
 }

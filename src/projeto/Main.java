@@ -13,6 +13,7 @@ public class Main {
 		File arq = new File("Teste.txt");
 		Automato automato = util.criaAutomato(util.separaLinhas(util.leArquivo(arq)));
 //		System.out.println(automato);
-		automato.transicao("10011");
+		Transicao transicao = new Transicao();
+		System.out.println(transicao.rodaAutomato(automato.getEstado().get(automato.getInicial()), "1001")); 
 	}
 }

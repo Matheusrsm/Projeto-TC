@@ -1,7 +1,6 @@
 estados A, B
 inicial A
 aceita B
-Alfabeto 01
 A B 0
 B A 0
 A A 1

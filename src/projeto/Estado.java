@@ -1,15 +1,14 @@
 package projeto;
-// e aqui ficaria as mudancas de estado.. inicial <-> final
-import java.util.ArrayList;
+
 import java.util.HashMap;
 import java.util.Map;
 
 public class Estado {
+
 	private Map<String, Estado> transicoes;
 	private boolean isFinal;
 	private boolean isInicial;
-	
-	
+
 	public Estado() {
 		super();
 		this.transicoes = new HashMap<String, Estado>();
@@ -22,7 +21,7 @@ public class Estado {
 	public void setTransicao(Map<String, Estado> transicao) {
 		this.transicoes = transicao;
 	}
-	
+
 	public void addTransicao(Estado estado, String entrada) {
 		this.transicoes.put(entrada, estado);
 	}
@@ -42,8 +41,8 @@ public class Estado {
 	public void setInicial(boolean isInicial) {
 		this.isInicial = isInicial;
 	}
+
 	public boolean teste() {
 		return this.isFinal;
 	}
-	
 }

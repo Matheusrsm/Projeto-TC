@@ -1,21 +1,33 @@
 package projeto;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 public class Automato {
 
 	private String inicial;
-	private HashMap<String, Estado> estado;
+	private Map<String, Estado> estado;
+	private Map<String, EstadoAFD> estadoAFD;
 	private List<String> aceita;
+	private List<String> alfabeto;
 
-	public Automato(List<String> estados, String inicial, List<String> aceita, List<String> transicoes) {
+	public Automato() {
+		this.estadoAFD = new HashMap<String, EstadoAFD>();
+		this.alfabeto = new ArrayList<String>();
+	}
+	
+	public Automato(List<String> estados, Map<String, EstadoAFD> estadoAFD, String inicial, List<String> aceita, List<String> transicoes) {
 		this.estado = new HashMap<>();
+		this.setEstadosAFD(estadoAFD); 
 		this.aceita = aceita;
 		this.inicial = inicial;
 		converte(transicoes);
 	}
-	
+
+
 	public void converte(List<String> estados) {
 		 for (String string : estados) {
 			 String state = Character.toString(string.charAt(0));
@@ -62,10 +74,43 @@ public class Automato {
 	}
 
 
-	public HashMap<String, Estado> getEstado() {
+	public Map<String, Estado> getEstado() {
 		return estado;
 	}
-	
+
+
+	public void setEstado(Map<String, Estado> estados) {
+		this.estado = estados;
+	}
+
+
+
+
+	public Map<String, EstadoAFD> getEstadosAFD() {
+		return estadoAFD;
+	}
+
+	public void setEstadosAFD(Map<String, EstadoAFD> estadosAFD) {
+		this.estadoAFD = estadosAFD;
+	}
+
+	public List<String> getAlfabeto() {
+		return this.alfabeto;
+	}
+
+	public void setAlfabeto(String[] ling) {
+		for (String s : ling) {
+			this.alfabeto.add(s);
+		}
+	}
+	public String getEstadoInicialAFD() {
+		for(Entry<String, EstadoAFD> a : estadoAFD.entrySet()) {
+			if(a.getValue() != null && a.getValue().isInicial()) {
+				return a.getKey();
+			}
+		}
+		return null;
+	}
 //	public void transicao(String cadeia) {
 //		System.out.println(transicoes);
 //		String estadoAtual = inicial;

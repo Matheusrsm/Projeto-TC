@@ -4,16 +4,20 @@ import java.util.Map;
 
 public class Operacoes {
 	
-	public boolean simulador(Estado estadoInicial, String palavra) {
-		return simulacao(estadoInicial, palavra, 0);
+	public String simulador(Estado estadoInicial, String palavra) {
+		String resultado = "Estado / Palavra";
+		return resultado + simulacao(estadoInicial, palavra, 0);
 	}
 	
-	private boolean simulacao(Estado estado, String palavra, int i) {
+	private String simulacao(Estado estado, String palavra, int i) {
 		if(i == palavra.length()) {
-			return estado.isFinal();
+			if (estado.isFinal())
+				return "\n" + estado.getSimbolo() + " / e\n\nA palavra foi aceita";
+			else
+				return "\n\nA palavra nao foi aceita";
 		} else {
 			String simbolo = Character.toString(palavra.charAt(i));
-			return simulacao(estado.getTransicoes().get(simbolo), palavra, i + 1);
+			return "\n" + estado.getSimbolo() + " / " + palavra.substring(i, palavra.length()) + simulacao(estado.getTransicoes().get(simbolo), palavra, i + 1);
 		}
 	}
 	

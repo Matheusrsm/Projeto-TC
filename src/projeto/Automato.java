@@ -22,7 +22,7 @@ public class Automato {
 	public void adicionaTransicoesAosEstados(List<String> listaDeEstados) {
 		for (String string : listaDeEstados) {
 			String estado = Character.toString(string.charAt(0));
-			estados.put(estado, new Estado());
+			estados.put(estado, new Estado(estado));
 			if (estado == inicial) {
 				estados.get(estado).setInicial(true);
 			}
@@ -46,6 +46,7 @@ public class Automato {
 	public List<String> getAceita() {
 		return aceita;
 	}
+
 	public void setAceita(List<String> novosAceita) {
 		this.aceita = novosAceita;
 	}
@@ -53,7 +54,7 @@ public class Automato {
 	public Map<String, Estado> getEstado() {
 		return estados;
 	}
-	
+
 	public void mudaEstadosComplemento() {
 		List<String> novosAceita = new ArrayList<>();
 		for (String estado : estados.keySet()) {
@@ -63,14 +64,14 @@ public class Automato {
 		}
 		setAceita(novosAceita);
 	}
-	
+
 	public String toStringLista(List<String> lista) {
 		String string = "\n";
 		for (String elemento : lista)
 			string += elemento + "\n";
 		return string;
 	}
-	
+
 	public String toStringEstados(Map<String, Estado> mapa) {
 		String string = "\n";
 		for (String estado : mapa.keySet()) {

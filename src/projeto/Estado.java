@@ -5,12 +5,14 @@ import java.util.Map;
 
 public class Estado {
 
+	private String simbolo;
 	private Map<String, Estado> transicoes;
 	private boolean isFinal;
 	private boolean isInicial;
 
-	public Estado() {
+	public Estado(String simbolo) {
 		super();
+		this.simbolo = simbolo;
 		this.transicoes = new HashMap<String, Estado>();
 	}
 
@@ -44,5 +46,9 @@ public class Estado {
 
 	public boolean teste() {
 		return this.isFinal;
+	}
+
+	public String getSimbolo() {
+		return simbolo;
 	}
 }

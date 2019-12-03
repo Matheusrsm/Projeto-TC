@@ -17,7 +17,7 @@ public class Operacoes {
 		}
 	}
 	
-	public void complemento(Automato automato) {
+	public String complemento(Automato automato) {
 		for(Map.Entry<String, Estado> map : automato.getEstado().entrySet()) {
 			if(!map.getValue().isFinal()) {
 				map.getValue().setFinal(true);
@@ -25,6 +25,25 @@ public class Operacoes {
 				map.getValue().setFinal(false);
 			}
 		}
+		automato.mudaEstadosComplemento();
+		return automato.toString();
+	}
+	
+	public boolean uniao(Automato automato1, Automato automato2) {
+		boolean automatoUM = false;
+		boolean automatoDOIS = false;
 		
+		for(Map.Entry<String, Estado> map : automato1.getEstado().entrySet()){
+			if(map.getValue().isFinal()) {
+				automatoUM = true;
+			}
+		}
+		
+		for(Map.Entry<String, Estado> map: automato2.getEstado().entrySet()) {
+			if(map.getValue().isFinal()) {
+				automatoDOIS = true;
+			}
+		}
+		return (automatoUM || automatoDOIS);
 	}
 }

@@ -5,14 +5,14 @@ import java.util.Map;
 
 public class Estado {
 
-	private String simbolo;
+	private String rotulo;
 	private Map<String, Estado> transicoes;
 	private boolean isFinal;
 	private boolean isInicial;
 
-	public Estado(String simbolo) {
+	public Estado(String rotulo) {
 		super();
-		this.simbolo = simbolo;
+		this.rotulo = rotulo;
 		this.transicoes = new HashMap<String, Estado>();
 	}
 
@@ -24,8 +24,12 @@ public class Estado {
 		this.transicoes = transicao;
 	}
 
-	public void addTransicao(Estado estado, String entrada) {
-		this.transicoes.put(entrada, estado);
+	public void addTransicao(Estado proxEstado, String valorDeTransicao) {
+		this.transicoes.put(valorDeTransicao, proxEstado);
+	}
+	
+	public boolean existeTransicaoVazia() {
+		return transicoes.containsKey("e");
 	}
 
 	public boolean isFinal() {
@@ -44,11 +48,7 @@ public class Estado {
 		this.isInicial = isInicial;
 	}
 
-	public boolean teste() {
-		return this.isFinal;
-	}
-
-	public String getSimbolo() {
-		return simbolo;
+	public String getRotulo() {
+		return rotulo;
 	}
 }

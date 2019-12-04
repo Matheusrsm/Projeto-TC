@@ -11,7 +11,7 @@ public class Automato {
 	private Map<String, Estado> estados;
 	private List<String> aceita, transicoes;
 
-	public Automato(List<String> estados, String inicial, List<String> aceita, List<String> transicoes) {
+	public Automato(String inicial, List<String> aceita, List<String> transicoes) {
 		this.estados = new HashMap<>();
 		this.aceita = aceita;
 		this.inicial = inicial;
@@ -20,14 +20,14 @@ public class Automato {
 	}
 
 	public void adicionaTransicoesAosEstados(List<String> listaDeEstados) {
-		for (String string : listaDeEstados) {
-			String estado = Character.toString(string.charAt(0));
-			estados.put(estado, new Estado(estado));
-			if (estado == inicial) {
-				estados.get(estado).setInicial(true);
+		for (String estado : listaDeEstados) {
+			String rotuloDoEstado = Character.toString(estado.charAt(0));
+			estados.put(rotuloDoEstado, new Estado(rotuloDoEstado));
+			if (rotuloDoEstado.equals(inicial)) {
+				estados.get(rotuloDoEstado).setInicial(true);
 			}
-			if (aceita.contains(estado)) {
-				estados.get(estado).setFinal(true);
+			if (aceita.contains(rotuloDoEstado)) {
+				estados.get(rotuloDoEstado).setFinal(true);
 			}
 		}
 
@@ -42,6 +42,10 @@ public class Automato {
 	public String getInicial() {
 		return inicial;
 	}
+	
+	public void setInicial(String novoInicial) {
+		this.inicial = novoInicial;
+	}
 
 	public List<String> getAceita() {
 		return aceita;
@@ -51,8 +55,12 @@ public class Automato {
 		this.aceita = novosAceita;
 	}
 
-	public Map<String, Estado> getEstado() {
+	public Map<String, Estado> getEstados() {
 		return estados;
+	}
+	
+	public List<String> getTransicoes() {
+		return transicoes;
 	}
 
 	public void mudaEstadosComplemento() {
@@ -72,9 +80,9 @@ public class Automato {
 		return string;
 	}
 
-	public String toStringEstados(Map<String, Estado> mapa) {
+	public String toStringEstados() {
 		String string = "\n";
-		for (String estado : mapa.keySet()) {
+		for (String estado : estados.keySet()) {
 			string += estado + "\n";
 		}
 		return string;
@@ -82,7 +90,7 @@ public class Automato {
 
 	@Override
 	public String toString() {
-		return "estados:" + toStringEstados(this.estados) + "\ninicial:\n" + this.inicial + "\n\naceita:"
+		return "estados:" + toStringEstados() + "\ninicial:\n" + this.inicial + "\n\naceita:"
 				+ toStringLista(this.aceita) + "\ntransições:" + toStringLista(this.transicoes);
 	}
 }

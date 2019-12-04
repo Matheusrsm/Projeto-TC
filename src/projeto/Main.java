@@ -29,7 +29,7 @@ public class Main {
 			File arq = new File(args[0]);
 			Automato automato = util.criaAutomato(util.separaLinhas(util.leArquivo(arq)));
 			System.out.println("Simulador:\n");
-			System.out.println(operacoes.simulador(automato.getEstado().get(automato.getInicial()), args[1]));
+			System.out.println(operacoes.simulador(automato.getEstados().get(automato.getInicial()), args[1]));
 		}
 	}
 }

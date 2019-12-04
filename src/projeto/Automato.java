@@ -8,41 +8,49 @@ import java.util.Map;
 public class Automato {
 
 	private String inicial;
-	private Map<String, Estado> estados;
-	private List<String> aceita, transicoes;
+	private Map<String, Estado> mapaDeEstados;
+	private List<String> aceita, transicoes, listaDeEstados;
 
-	public Automato(String inicial, List<String> aceita, List<String> transicoes) {
-		this.estados = new HashMap<>();
+	public Automato(List<String> listaDeEstados, String inicial, List<String> aceita, List<String> transicoes) {
+		this.mapaDeEstados = new HashMap<>();
 		this.aceita = aceita;
 		this.inicial = inicial;
 		this.transicoes = transicoes;
-		adicionaTransicoesAosEstados(transicoes);
+		this.listaDeEstados = listaDeEstados;
+		adicionaTransicoesAosEstados();
 	}
 
-	public void adicionaTransicoesAosEstados(List<String> listaDeEstados) {
-		for (String estado : listaDeEstados) {
-			String rotuloDoEstado = Character.toString(estado.charAt(0));
-			estados.put(rotuloDoEstado, new Estado(rotuloDoEstado));
-			if (rotuloDoEstado.equals(inicial)) {
-				estados.get(rotuloDoEstado).setInicial(true);
+	public void adicionaTransicoesAosEstados() {
+		for (String transicao : transicoes) {
+			String estado1 = Character.toString(transicao.charAt(0));
+			mapaDeEstados.put(estado1, new Estado(estado1));
+			if (estado1.equals(inicial)) {
+				mapaDeEstados.get(estado1).setInicial(true);
 			}
-			if (aceita.contains(rotuloDoEstado)) {
-				estados.get(rotuloDoEstado).setFinal(true);
+			if (aceita.contains(estado1)) {
+				mapaDeEstados.get(estado1).setFinal(true);
 			}
 		}
+		
+		for (String estado : listaDeEstados) {
+			if (!mapaDeEstados.containsKey(estado))
+				mapaDeEstados.put(estado, new Estado(estado));
+			if (aceita.contains(estado))
+				mapaDeEstados.get(estado).setFinal(true);
+		}
 
-		for (String string : listaDeEstados) {
+		for (String string : transicoes) {
 			String estado = Character.toString(string.charAt(0));
 			String proxEstado = Character.toString(string.charAt(2));
 			String valorDaTransicao = Character.toString(string.charAt(4));
-			estados.get(estado).addTransicao(estados.get(proxEstado), valorDaTransicao);
+			mapaDeEstados.get(estado).addTransicao(mapaDeEstados.get(proxEstado), valorDaTransicao);
 		}
 	}
 
 	public String getInicial() {
 		return inicial;
 	}
-	
+
 	public void setInicial(String novoInicial) {
 		this.inicial = novoInicial;
 	}
@@ -55,17 +63,21 @@ public class Automato {
 		this.aceita = novosAceita;
 	}
 
-	public Map<String, Estado> getEstados() {
-		return estados;
+	public Map<String, Estado> getMapaDeEstados() {
+		return mapaDeEstados;
 	}
-	
+
 	public List<String> getTransicoes() {
 		return transicoes;
 	}
 
+	public List<String> getListaDeEstados() {
+		return listaDeEstados;
+	}
+
 	public void mudaEstadosComplemento() {
 		List<String> novosAceita = new ArrayList<>();
-		for (String estado : estados.keySet()) {
+		for (String estado : mapaDeEstados.keySet()) {
 			if (!aceita.contains(estado)) {
 				novosAceita.add(estado);
 			}
@@ -82,7 +94,7 @@ public class Automato {
 
 	public String toStringEstados() {
 		String string = "\n";
-		for (String estado : estados.keySet()) {
+		for (String estado : mapaDeEstados.keySet()) {
 			string += estado + "\n";
 		}
 		return string;

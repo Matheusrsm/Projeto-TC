@@ -1,0 +1,9 @@
+estados $, A, B, C, D, E, F
+inicial $
+aceita C, F
+$ A e
+$ D e
+A B 1
+B C 0
+D E 0
+E F 1

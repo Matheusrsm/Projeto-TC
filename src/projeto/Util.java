@@ -60,14 +60,17 @@ public class Util {
 	}
 
 	public Automato criaAutomato(Map<String, List<String>> mapaDoAutomato) {
+		List<String> estados = mapaDoAutomato.get("estados");
 		List<String> aceita = mapaDoAutomato.get("aceita");
 		List<String> transicoes = mapaDoAutomato.get("transicoes");
 		String inicial = mapaDoAutomato.get("inicial").get(0);
-		return new Automato(inicial, aceita, transicoes);
+		return new Automato(estados, inicial, aceita, transicoes);
 	}
 	
 	public Automato criaAutomatoUniao(Automato automato1, Automato automato2) {
-		Automato automatoFinal = new Automato("$", new ArrayList<>(), new ArrayList<>());
+		Automato automatoFinal = new Automato(new ArrayList<>(), "$", new ArrayList<>(), new ArrayList<>());
+		automatoFinal.getListaDeEstados().addAll(automato1.getListaDeEstados());
+		automatoFinal.getListaDeEstados().addAll(automato2.getListaDeEstados());
 		automatoFinal.getAceita().addAll(automato1.getAceita());
 		automatoFinal.getAceita().addAll(automato2.getAceita());
 		if (automato1.getInicial().equals(automato2.getInicial()))
@@ -78,7 +81,7 @@ public class Util {
 		}
 		automatoFinal.getTransicoes().addAll(automato1.getTransicoes());
 		automatoFinal.getTransicoes().addAll(automato2.getTransicoes());
-		automatoFinal.adicionaTransicoesAosEstados(automatoFinal.getTransicoes());
+		automatoFinal.adicionaTransicoesAosEstados();
 		return automatoFinal;
 	}
 }

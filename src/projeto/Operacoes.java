@@ -19,10 +19,8 @@ public class Operacoes {
 				if (estado.existeTransicaoVazia()) {
 					return "\n" + estado.getRotulo() + " / " + "e"
 							+ simulacao(estado.getTransicoes().get("e"), palavra, i);
-				}
-				else {
+				} else
 					return "\n\nA palavra nao foi aceita";
-				}
 			}
 		} else {
 			if (estado.existeTransicaoVazia()) {
@@ -37,7 +35,7 @@ public class Operacoes {
 	}
 
 	public String complemento(Automato automato) {
-		for (Map.Entry<String, Estado> map : automato.getEstados().entrySet()) {
+		for (Map.Entry<String, Estado> map : automato.getMapaDeEstados().entrySet()) {
 			if (!map.getValue().isFinal()) {
 				map.getValue().setFinal(true);
 			} else {
